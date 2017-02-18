@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @RequestMapping("/")
 @SessionAttributes("user")
-public class MainAdFeedController {
+public class MainPageFeedController {
     @RequestMapping(method = RequestMethod.GET)
-    public String doStart() {
+    public String mainPage() {
+
         return "index";
     }
 }
