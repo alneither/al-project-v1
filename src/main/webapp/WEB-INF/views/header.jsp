@@ -3,18 +3,19 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="style/styles.css">
+    <link rel="stylesheet" type="text/css" href="/style/styles.css">
 </head>
 <body>
 <div class="header">
     <div id="search-form">
-        <form action="search-controller" method="get">
+        <form action="search" method="get">
             <input type="text" placeholder="search">
             <br>
             <input type="submit" value="search">
         </form>
     </div>
-    <c:if test="${empty sessionScope.user}">
+    <c:choose>
+    <c:when test="${empty sessionScope.user}">
         <div id="login-form">
             <form action="login" method="post">
                 <input type="text" name="login" placeholder="login">
@@ -23,9 +24,13 @@
                 <br>
                 <input type="submit" value="enter">
             </form>
-            <a href="sign-up.jsp">sign-up</a>
+            <a href="/registration">sign-up</a>
         </div>
-    </c:if>
+    </c:when>
+        <c:otherwise>
+            <h4>Welcome ${sessionScope.user}</h4>
+        </c:otherwise>
+    </c:choose>
 </div>
 </body>
 </html>

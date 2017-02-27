@@ -1,18 +1,20 @@
 package org.al.adsystem.model.domain.bean;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
 @Entity
+@Component
 @Table(name = "user")
 public class User {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "login")
+    private String login;
 
     @Column(name = "password")
     private String password;
@@ -25,12 +27,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLogin() {
+        return login;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -45,15 +47,18 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
-        return id == user.id;
+
+        if (!login.equals(user.login)) return false;
+        return password.equals(user.password);
 
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + name.hashCode();
+        result = 31 * result + login.hashCode();
         result = 31 * result + password.hashCode();
         return result;
     }
@@ -62,7 +67,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
