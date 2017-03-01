@@ -71,6 +71,18 @@
     <property name="service" ref="userService"/>
     </bean>
 
+    <bean id="adProviderDAO" class="org.al.adsystem.dao.impl.AdProviderDAOImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="adService" class="org.al.adsystem.service.impl.AdServiceImpl">
+        <property name="dao" ref="adProviderDAO"/>
+    </bean>
+
+    <bean id="adController" class="org.al.adsystem.controller.AdController">
+        <property name="service" ref="adService"/>
+    </bean>
+
     <bean id="persistenceExceptionTranslationPostProcessor"
           class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 

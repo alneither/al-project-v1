@@ -18,7 +18,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signUpUser(User user) {
         String login = user.getLogin();
-
         if (dao.getUserByLogin(login) == null) {
             dao.addUser(user);
         }

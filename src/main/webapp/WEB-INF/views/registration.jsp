@@ -6,10 +6,13 @@
     <link rel="stylesheet" type="text/css" href="style/styles.css">
 </head>
 <body>
+<script>
+    function reportError() {
+        alert("${requestScope.errorMessage}");
+    }
+</script>
 <c:if test="${not empty requestScope.errorMessage}">
-    <div class="err-message">
-        <h4>${requestScope.errorMessage}</h4>
-    </div>
+   <body onload="reportError()"></body>
 </c:if>
 <div id="register-form">
     <form action="add-user" method="post">

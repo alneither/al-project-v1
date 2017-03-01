@@ -1,7 +1,6 @@
 package org.al.adsystem.model.domain.bean;
 
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +17,14 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    public User() {
+    }
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 
     public int getId() {
         return id;

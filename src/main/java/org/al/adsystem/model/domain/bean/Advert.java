@@ -18,6 +18,15 @@ public class Advert {
     @Column(name = "contact")
     private String contact;
 
+    public Advert() {
+    }
+
+    public Advert(String header, String body, String contact) {
+        this.header = header;
+        this.body = body;
+        this.contact = contact;
+    }
+
     public String getContact() {
         return contact;
     }

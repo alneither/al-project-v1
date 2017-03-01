@@ -6,12 +6,18 @@
     <link rel="stylesheet" type="text/css" href="/style/styles.css">
 </head>
 <body>
+<script>
+    function reportError() {
+        alert("${requestScope.errorMessage}");
+    }
+</script>
 <jsp:include page="header.jsp"/>
 <h1>Have a nice learning</h1>
 <c:if test="${not empty requestScope.errorMessage}">
-    <div class="err-message">
-        ${requestScope.errorMessage}
-    </div>
+    <body onload="reportError()"></body>
+</c:if>
+<c:if test="${not empty sessionScope.user}">
+    <a href="/new-ad">Create new ad</a>
 </c:if>
 
 </body>
