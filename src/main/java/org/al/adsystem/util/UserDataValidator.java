@@ -1,7 +1,5 @@
 package org.al.adsystem.util;
 
-import static org.apache.commons.lang3.StringUtils.EMPTY;
-
 public class UserDataValidator {
 
     private static final String LOGIN_PATTERN = "[a-zA-Z0-9]{2,20}";

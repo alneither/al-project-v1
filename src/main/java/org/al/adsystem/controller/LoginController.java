@@ -28,13 +28,13 @@ public class LoginController {
             return "index";
         }
 
-        if (service.isSuchUserExists(login, password)) {
+        if (service.isLoginAllowed(login, password)) {
             session.setAttribute("user", login);
         }
         return "index";
     }
 
-    public void setService(UserService service) {
+    public void setService(final UserService service) {
         this.service = service;
     }
 }

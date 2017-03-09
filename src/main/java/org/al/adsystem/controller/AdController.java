@@ -6,9 +6,7 @@ import org.al.adsystem.util.UserDataValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import static org.al.adsystem.util.Constant.*;
 
@@ -25,7 +23,7 @@ public class AdController {
     }
 
     @RequestMapping(value = "/add-new-ad", method = RequestMethod.POST)
-    public String addNewAd(final HttpServletRequest request, final HttpSession session) {
+    public String addNewAd(final HttpServletRequest request) {
         String header = request.getParameter("ad-header");
         String body = request.getParameter("ad-body");
         String contact = request.getParameter("ad-contact");

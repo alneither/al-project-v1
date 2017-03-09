@@ -1,9 +1,7 @@
 package org.al.adsystem.dao.impl;
 
 import org.al.adsystem.dao.iface.UserProviderDAO;
-import org.al.adsystem.exception.UserAuthenticationException;
 import org.al.adsystem.model.domain.bean.User;
-import org.al.adsystem.util.UserHashHandleUtility;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,51 +15,50 @@ import static org.al.adsystem.util.Constant.*;
 @Repository
 public class UserProviderDAOimpl implements UserProviderDAO {
 
-    private static final String INCORRECT_LOGIN_ATTEMPT_BY_USERNAME = "Incorrect attempt of login by username: ";
     private SessionFactory sessionFactory;
 
     @Transactional
     @Override
-    public void addUser(User user) {
+    public void addUser(final User user) {
         Session session = this.sessionFactory.getCurrentSession();
         session.save(user);
     }
 
     @Transactional
     @Override
-    public User getUserByLoginAndPassword(String login, String password) {
-        User trueUser = getUserByLogin(login);
-        String salt = trueUser.getSalt();
-        String hash = trueUser.getHash();
-
-        String controlHash = UserHashHandleUtility.getHash(password, salt);
-
-        if (controlHash.equals(hash)) {
-            return trueUser;
-        } else {
-            throw new UserAuthenticationException(INCORRECT_LOGIN_ATTEMPT_BY_USERNAME + login);
+    public User getUserByLoginAndPassword(final String login, final String password) {
+        User resultUser = new User();
+        User existentUser = getUserByLogin(login);
+        if (existentUser == null) {
+            return resultUser;
         }
+        return existentUser;
     }
 
     @Transactional
     @Override
-    public User getUserByLogin(String login) {
+    public User getUserByLogin(final String login) {
+        User resultUser = new User();
         String hq1 = "from User where login=:login";
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery(hq1);
         query.setParameter(LOGIN, login);
-        User user = (User) query.uniqueResult();
-        return user;
+
+        User existentUser = (User) query.uniqueResult();
+        if (existentUser == null) {
+            return resultUser;
+        }
+        return existentUser;
     }
 
     @Transactional
     @Override
-    public void removeUser(User user) {
+    public void removeUser(final User user) {
         Session session = this.sessionFactory.getCurrentSession();
         session.delete(user);
     }
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public void setSessionFactory(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 }

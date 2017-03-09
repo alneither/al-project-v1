@@ -18,16 +18,16 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public List<Advert> getUserAds(int id) {
+    public List<Advert> getUserAds(final int id) {
         return null;
     }
 
     @Override
-    public void addNewAdvert(Advert newAd) {
+    public void addNewAdvert(final Advert newAd) {
         dao.addNewAdvert(newAd);
     }
 
-    public void setDao(AdProviderDAO dao) {
+    public void setDao(final AdProviderDAO dao) {
         this.dao = dao;
     }
 }
