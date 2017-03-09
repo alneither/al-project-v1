@@ -15,8 +15,11 @@ public class User {
     @Column(name = "login")
     private String login;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "salt")
+    private String salt;
+
+    @Column(name = "hash")
+    private String hash;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
     private Set<Advert> ads;
@@ -24,9 +27,10 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password) {
+    public User(String login, String salt, String hash) {
         this.login = login;
-        this.password = password;
+        this.salt = salt;
+        this.hash = hash;
     }
 
     public int getId() {
@@ -45,12 +49,28 @@ public class User {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public Set<Advert> getAds() {
+        return ads;
+    }
+
+    public void setAds(Set<Advert> ads) {
+        this.ads = ads;
     }
 
     @Override
@@ -60,8 +80,10 @@ public class User {
 
         User user = (User) o;
 
+        if (id != user.id) return false;
         if (!login.equals(user.login)) return false;
-        return password.equals(user.password);
+        if (!salt.equals(user.salt)) return false;
+        return hash.equals(user.hash);
 
     }
 
@@ -69,24 +91,16 @@ public class User {
     public int hashCode() {
         int result = id;
         result = 31 * result + login.hashCode();
-        result = 31 * result + password.hashCode();
+        result = 31 * result + salt.hashCode();
+        result = 31 * result + hash.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                "login='" + login + '\'' +
+                ", id=" + id +
                 '}';
-    }
-
-    public Set<Advert> getAds() {
-        return ads;
-    }
-
-    public void setAds(Set<Advert> ads) {
-        this.ads = ads;
     }
 }

@@ -3,6 +3,7 @@ package org.al.adsystem.service.impl;
 import org.al.adsystem.dao.iface.UserProviderDAO;
 import org.al.adsystem.model.domain.bean.User;
 import org.al.adsystem.service.iface.UserService;
+import org.al.adsystem.util.UserHashHandleUtility;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,10 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void signUpUser(User user) {
-        String login = user.getLogin();
+    public void signUpUser(String login, String password) {
+        String salt = UserHashHandleUtility.generateSalt();
+        String hash = UserHashHandleUtility.getHash(password, salt);
+        User user = new User(login, salt, hash);
         if (dao.getUserByLogin(login) == null) {
             dao.addUser(user);
         }

@@ -1,6 +1,5 @@
 package org.al.adsystem.controller;
 
-import org.al.adsystem.model.domain.bean.User;
 import org.al.adsystem.service.iface.UserService;
 import org.al.adsystem.util.UserDataValidator;
 import org.springframework.stereotype.Controller;
@@ -30,8 +29,7 @@ public class SignUpController {
         String passwordRepeat = request.getParameter(PASSWORD_REPEAT);
 
         if (UserDataValidator.validateUserData(login, password, passwordRepeat)) {
-            User user = new User(login, password);
-            service.signUpUser(user);
+            service.signUpUser(login, password);
             return "index";
         } else {
             request.setAttribute(ERROR_MESSAGE_NAME, INCORRECT_DATA_ENTERED_MESSAGE);
