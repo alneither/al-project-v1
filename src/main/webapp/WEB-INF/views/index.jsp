@@ -19,6 +19,18 @@
 <c:if test="${not empty sessionScope.user}">
     <a href="/new-ad">Create new ad</a>
 </c:if>
+<%--<div class="ad-table">--%>
+    <%--<table>--%>
+        <%--<c:forEach var="ad" items="${ads-list}">--%>
+            <%--<tr>--%>
+                <%--<th>--%>
+                    <%--<c:out value="${ad.header}"/>--%>
+                <%--</th>--%>
+            <%--</tr>--%>
+        <%--</c:forEach>--%>
+
+    <%--</table>--%>
+<%--</div>--%>
 
 </body>
 </html>

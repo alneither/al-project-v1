@@ -1,15 +1,15 @@
 package org.al.adsystem.model.domain.bean;
 
-import org.springframework.stereotype.Component;
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Component
 @Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userId")
     private int id;
 
     @Column(name = "login")
@@ -17,6 +17,9 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
+    private Set<Advert> ads;
 
     public User() {
     }
@@ -77,5 +80,13 @@ public class User {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public Set<Advert> getAds() {
+        return ads;
+    }
+
+    public void setAds(Set<Advert> ads) {
+        this.ads = ads;
     }
 }

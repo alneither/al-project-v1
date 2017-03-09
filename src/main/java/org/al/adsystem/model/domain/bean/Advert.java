@@ -1,12 +1,15 @@
 package org.al.adsystem.model.domain.bean;
 
+import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "ads")
 public class Advert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "advertId")
     private int id;
 
     @Column(name = "header")
@@ -17,6 +20,14 @@ public class Advert {
 
     @Column(name = "contact")
     private String contact;
+
+    @Column(name="timestamp")
+    @CreationTimestamp
+    private Date timeStamp;
+
+    @Column(name = "created-by")
+    @JoinColumn(name = "userId")
+    private int createdBy;
 
     public Advert() {
     }
@@ -84,5 +95,21 @@ public class Advert {
                 ", body='" + body + '\'' +
                 ", contact='" + contact + '\'' +
                 '}';
+    }
+
+    public Date getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public int getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(int createdBy) {
+        this.createdBy = createdBy;
     }
 }
