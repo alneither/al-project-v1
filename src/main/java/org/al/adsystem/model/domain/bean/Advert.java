@@ -25,17 +25,18 @@ public class Advert {
     @CreationTimestamp
     private Date timeStamp;
 
-    @Column(name = "created-by")
+    @Column(name = "createdBy")
     @JoinColumn(name = "userId")
     private int createdBy;
 
     public Advert() {
     }
 
-    public Advert(String header, String body, String contact) {
+    public Advert(final String header, final String body, final String contact, final int id) {
         this.header = header;
         this.body = body;
         this.contact = contact;
+        this.createdBy = id;
     }
 
     public String getContact() {

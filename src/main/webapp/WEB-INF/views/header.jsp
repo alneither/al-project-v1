@@ -15,7 +15,7 @@
         </form>
     </div>
     <c:choose>
-    <c:when test="${empty sessionScope.user}">
+    <c:when test="${empty sessionScope.username}">
         <div id="login-form">
             <form action="login" method="post">
                 <input type="text" name="login" placeholder="login">
@@ -28,7 +28,7 @@
         </div>
     </c:when>
         <c:otherwise>
-            <h4>Welcome ${sessionScope.user}</h4>
+            <h4>Welcome ${sessionScope.username}</h4>
         </c:otherwise>
     </c:choose>
 </div>

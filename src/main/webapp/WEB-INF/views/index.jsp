@@ -16,7 +16,12 @@
 <c:if test="${not empty requestScope.errorMessage}">
     <body onload="reportError()"></body>
 </c:if>
-<c:if test="${not empty sessionScope.user}">
+<c:if test="${not empty requestScope.infoMessage}">
+    <div class="info-message-space">
+        <h4>${infoMessage}</h4>
+    </div>
+</c:if>
+<c:if test="${not empty sessionScope.username}">
     <a href="/new-ad">Create new ad</a>
 </c:if>
 <%--<div class="ad-table">--%>

@@ -2,6 +2,7 @@ package org.al.adsystem.model.domain.bean;
 
 import javax.persistence.*;
 import java.util.Set;
+import static org.al.adsystem.util.Constant.DEFAULT_USERNAME;
 
 @Entity
 @Table(name = "user")
@@ -13,7 +14,7 @@ public class User {
     private int id;
 
     @Column(name = "login")
-    private String login;
+    private String login = DEFAULT_USERNAME;
 
     @Column(name = "salt")
     private String salt;

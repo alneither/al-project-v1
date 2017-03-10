@@ -7,13 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import static org.al.adsystem.util.Constant.*;
 
 @Controller
 public class AdController {
 
-    private static final Object INCORRECT_AD_DATA_ENTERED =
+    private static final String INCORRECT_AD_DATA_ENTERED =
             "Please, fill all required fields.";
     private AdService service;
 
@@ -23,16 +24,17 @@ public class AdController {
     }
 
     @RequestMapping(value = "/add-new-ad", method = RequestMethod.POST)
-    public String addNewAd(final HttpServletRequest request) {
+    public String addNewAd(final HttpServletRequest request, HttpSession session) {
         String header = request.getParameter("ad-header");
         String body = request.getParameter("ad-body");
         String contact = request.getParameter("ad-contact");
 
         if (UserDataValidator.validateAdData(header, body, contact)) {
-            Advert advert = new Advert(header, body, contact);
+            int targetId = (int) session.getAttribute(USER_ID_ATTR_NAME);
+            Advert advert = new Advert(header, body, contact, targetId);
             service.addNewAdvert(advert);
         } else {
-            request.setAttribute(ERROR_MESSAGE_NAME, INCORRECT_AD_DATA_ENTERED);
+            request.setAttribute(ERROR_MESSAGE_ATTR_NAME, INCORRECT_AD_DATA_ENTERED);
             return "new-ad";
         }
 

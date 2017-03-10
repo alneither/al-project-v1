@@ -5,7 +5,6 @@ import org.al.adsystem.util.UserDataValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.servlet.http.HttpServletRequest;
 
 import static org.al.adsystem.util.Constant.*;
@@ -30,9 +29,10 @@ public class SignUpController {
 
         if (UserDataValidator.validateUserData(login, password, passwordRepeat)) {
             service.signUpUser(login, password);
+            request.setAttribute(INFORMATION_MESSAGE_ATTR_NAME, SUCCESSFUL_REGISTRATION_MESSAGE);
             return "index";
         } else {
-            request.setAttribute(ERROR_MESSAGE_NAME, INCORRECT_DATA_ENTERED_MESSAGE);
+            request.setAttribute(ERROR_MESSAGE_ATTR_NAME, INCORRECT_DATA_ENTERED_MESSAGE);
             return "registration";
         }
     }

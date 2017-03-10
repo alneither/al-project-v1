@@ -2,6 +2,7 @@ package org.al.adsystem.dao.iface;
 
 import org.al.adsystem.model.domain.bean.Advert;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface AdProviderDAO {
@@ -11,5 +12,4 @@ public interface AdProviderDAO {
     List<Advert> getUserAds(int id);
 
     void addNewAdvert(Advert newAd);
-
 }

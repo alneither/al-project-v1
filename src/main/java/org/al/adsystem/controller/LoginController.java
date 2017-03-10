@@ -24,12 +24,15 @@ public class LoginController {
         String password = request.getParameter(PASSWORD);
 
         if (!UserDataValidator.validateSignInData(login, password)) {
-            request.setAttribute(ERROR_MESSAGE_NAME, INCORRECT_LOGIN_OR_PASSWORD_MESSAGE);
+            request.setAttribute(ERROR_MESSAGE_ATTR_NAME, INCORRECT_LOGIN_OR_PASSWORD_MESSAGE);
             return "index";
         }
 
         if (service.isLoginAllowed(login, password)) {
-            session.setAttribute("user", login);
+            session.setAttribute(USERNAME_ATTR_NAME, login);
+
+            int userId = service.getUserIdByLogin(login);
+            session.setAttribute(USER_ID_ATTR_NAME, userId);
         }
         return "index";
     }
